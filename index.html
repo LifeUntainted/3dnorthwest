@@ -107,24 +107,22 @@
      * HEADER
        - Reversed gradient (gold left to dark right)
        - Fixed height so bigger logo won't stretch it
-       - Larger logo
+       - Even larger logo than before
      ********************************************************/
     header {
       background: linear-gradient(90deg, #ffd700, #333);
-      height: 70px; /* fix the header height */
+      height: 70px; 
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-top: 0;
-      /* remove top/bottom padding, keep side padding */
-      padding: 0 1.5rem;
+      padding: 0 1.5rem; /* No top/bottom padding, side padding only */
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
       position: relative;
       z-index: 1;
     }
     header .logo img {
-      /* bigger logo, but won't expand header due to fixed height */
-      height: 60px;
+      height: 70px; /* increased from 60px to 70px */
       width: auto;
     }
     .nav-links {
@@ -152,7 +150,7 @@
      ********************************************************/
     .hero {
       position: relative;
-      height: 45vh;         /* you can lower or raise as needed */
+      height: 45vh;         
       min-height: 300px;
       background:
         url('https://via.placeholder.com/1600x900/000000/ffffff?text=3DNorthwest+Hero+BG')
@@ -284,6 +282,8 @@
 
     /********************************************************
      * FOOTER
+       - Remove social links
+       - Add short "Wishing you success!"
      ********************************************************/
     footer {
       background: linear-gradient(90deg, #333, #ffd700);
@@ -292,22 +292,8 @@
       color: white;
       margin-top: 1rem; 
     }
-    .social-links {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 0;
-      margin-top: 0.8rem;
-    }
-    .social-links a {
-      color: white;
-      font-size: 1.1rem;
-      transition: color 0.3s, transform 0.3s;
-    }
-    .social-links a:hover {
-      color: #ffd700;
-      transform: rotate(10deg) scale(1.2);
+    footer p {
+      margin: 0.5rem 0;
     }
 
     /********************************************************
@@ -338,13 +324,13 @@
     <!-- HEADER -->
     <header>
       <div class="logo fade-in">
-        <!-- Using your own local logo file -->
+        <!-- Using your local logo file -->
         <img src="/images/logo.png" alt="3DNorthwest Logo">
       </div>
       <ul class="nav-links slide-right">
         <li><a href="#home">Home</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#about">About</a></li>
+        <!-- Removed the About link -->
         <li><a href="#contact">Contact</a></li>
       </ul>
     </header>
@@ -375,7 +361,7 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- ABOUT (Optional - still included, but remove this whole section if not needed) -->
     <section id="about" class="fade-in">
       <h2>About Us</h2>
       <p>
@@ -401,11 +387,7 @@
     <!-- FOOTER -->
     <footer>
       <p>&copy; 2025 3DNorthwest. All rights reserved.</p>
-      <ul class="social-links">
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">LinkedIn</a></li>
-      </ul>
+      <p>Wishing you success!</p>
     </footer>
   </div>
 
