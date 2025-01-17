@@ -7,11 +7,13 @@
   <meta name="author" content="Isaac Phillips">
   <title>3DNorthwest | 360° Photography & Virtual Tours</title>
 
-  <!-- Favicon & App Icons -->
+  <!-- Favicon & App Icons (optional) -->
+  <!-- 
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
   <link rel="manifest" href="images/site.webmanifest">
+  -->
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -103,21 +105,27 @@
 
     /********************************************************
      * HEADER
+       - Reversed gradient (gold left to dark right)
+       - Fixed height so bigger logo won't stretch it
+       - Larger logo
      ********************************************************/
     header {
-      /* Use the same gradient as the footer */
-      background: linear-gradient(90deg, #333, #ffd700);
-      padding: 0.8rem 1.5rem;
+      background: linear-gradient(90deg, #ffd700, #333);
+      height: 70px; /* fix the header height */
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 0; 
+      margin-top: 0;
+      /* remove top/bottom padding, keep side padding */
+      padding: 0 1.5rem;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
       position: relative;
       z-index: 1;
     }
     header .logo img {
-      height: 50px;
+      /* bigger logo, but won't expand header due to fixed height */
+      height: 60px;
+      width: auto;
     }
     .nav-links {
       list-style: none;
@@ -144,7 +152,7 @@
      ********************************************************/
     .hero {
       position: relative;
-      height: 45vh;         /* shortened to scrunch more */
+      height: 45vh;         /* you can lower or raise as needed */
       min-height: 300px;
       background:
         url('https://via.placeholder.com/1600x900/000000/ffffff?text=3DNorthwest+Hero+BG')
@@ -330,7 +338,7 @@
     <!-- HEADER -->
     <header>
       <div class="logo fade-in">
-        <!-- Replace 'logo.png' with your actual logo source -->
+        <!-- Using your own local logo file -->
         <img src="/images/logo.png" alt="3DNorthwest Logo">
       </div>
       <ul class="nav-links slide-right">
