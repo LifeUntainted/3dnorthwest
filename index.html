@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="3DNorthwest - 360° Photography and Virtual Tours">
+  <meta name="author" content="Isaac Phillips">
+  <title>3DNorthwest | 360° Photography & Virtual Tours</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts (example) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" 
+    rel="stylesheet"
+  >
+
+  <style>
+    /* GLOBAL STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth; /* Smooth scrolling for internal links */
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: #333;
+      background: url('https://via.placeholder.com/1200x800/ffffff/cccccc?text=Marble+Texture') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* SCROLL FADE-IN ANIMATIONS */
+    .fade-in,
+    .slide-left,
+    .slide-right {
+      opacity: 0;
+      transition: 1s all ease-in-out;
+    }
+    .fade-in {
+      transform: translateY(20px);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .slide-left {
+      transform: translateX(20px);
+    }
+    .slide-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .slide-right {
+      transform: translateX(-20px);
+    }
+    .slide-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* CHROME AND GOLD SIDE BARS */
+    .chrome-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 100vh;
+      background: linear-gradient(to bottom, #dcdcdc, #bfbfbf);
+      box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+      z-index: 9999;
+    }
+    .gold-bar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 100vh;
+      background: linear-gradient(to bottom, #ffd700, #bfa700);
+      box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+      z-index: 9999;
+    }
+
+    /* PAGE WRAPPER to keep content away from the bars */
+    .page-content {
+      margin: 0 30px; /* Give breathing room from the bars */
+      overflow: hidden; 
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(to right, #2c2c2c, #444444);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0; 
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+    header .logo img {
+      height: 50px;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links li {
+      position: relative;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      transition: transform 0.3s, color 0.3s;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover {
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    /* HERO SECTION (PARALLAX) */
+    .hero {
+      position: relative;
+      height: 80vh;
+      min-height: 500px;
+      background: 
+        url('https://via.placeholder.com/1600x900/000000/ffffff?text=3DNorthwest+Hero+BG') 
+        no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .cta-button {
+      background: #ffd700;
+      color: black;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .cta-button:hover {
+      background: #e6c200;
+      transform: scale(1.1);
+    }
+
+    /* SECTION LAYOUT */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+    }
+    section h2 {
+      text-align: center;
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      border-bottom: 2px solid #ffd700;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+
+    /* SERVICES */
+    .services-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .service {
+      background-color: rgba(255,255,255,0.8);
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      text-align: center;
+    }
+    .service h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .service p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* PORTFOLIO */
+    .portfolio-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s;
+    }
+    .portfolio-item p {
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      text-align: center;
+      padding: 0.5rem 0;
+      margin: 0;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      font-weight: 700;
+    }
+    .portfolio-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ABOUT */
+    #about p {
+      text-align: center;
+      max-width: 800px;
+      margin: 2rem auto 0 auto;
+      background-color: rgba(255,255,255,0.8);
+      padding: 1.5rem;
+      border-radius: 10px;
+      line-height: 1.6;
+    }
+
+    /* CONTACT */
+    form {
+      max-width: 600px;
+      margin: 2rem auto;
+      background-color: rgba(255,255,255,0.8);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    form label {
+      font-weight: 700;
+      margin-top: 1rem;
+      display: block;
+    }
+    form input,
+    form textarea {
+      width: 100%;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    form button {
+      background: #ffd700;
+      color: #333;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s, transform 0.3s;
+    }
+    form button:hover {
+      background: #e6c200;
+      transform: scale(1.05);
+    }
+
+    /* FOOTER */
+    footer {
+      background: linear-gradient(90deg, #333, #ffd700);
+      padding: 2rem;
+      text-align: center;
+      color: white;
+      margin-top: 2rem;
+    }
+    .social-links {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0;
+      margin-top: 1rem;
+    }
+    .social-links a {
+      color: white;
+      font-size: 1.2rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .social-links a:hover {
+      color: #ffd700;
+      transform: rotate(10deg) scale(1.2);
+    }
+
+    /* MEDIA QUERIES (Example) */
+    @media (max-width: 768px) {
+      header .nav-links {
+        gap: 1rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- The chrome bar on the left, gold bar on the right -->
+  <div class="chrome-bar"></div>
+  <div class="gold-bar"></div>
+
+  <!-- Page Content Wrapper (keeps distance from side bars) -->
+  <div class="page-content">
+
+    <!-- HEADER -->
+    <header>
+      <div class="logo fade-in">
+        <!-- Replace 'logo.png' with your actual logo source -->
+        <img src="https://via.placeholder.com/150x50?text=3DNorthwest+Logo" alt="3DNorthwest Logo">
+      </div>
+      <ul class="nav-links slide-right">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero fade-in">
+      <h1>Welcome to 3DNorthwest</h1>
+      <p>Experience your business from every angle with immersive 360° tours.</p>
+      <a href="#services" class="cta-button">Explore Services</a>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="fade-in">
+      <h2>Our Services</h2>
+      <div class="services-container">
+        <div class="service fade-in">
+          <h3>360° Photography</h3>
+          <p>Immersive, high-quality panoramic photos that let customers explore your space virtually.</p>
+        </div>
+        <div class="service fade-in">
+          <h3>Virtual Tours</h3>
+          <p>Interactive tours that showcase your unique features, ambiance, and environment.</p>
+        </div>
+        <div class="service fade-in">
+          <h3>Google Maps Integration</h3>
+          <p>Stand out on Google Business with professional imagery that boosts engagement.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="fade-in">
+      <h2>Portfolio</h2>
+      <div class="portfolio-container">
+        <div class="portfolio-item">
+          <!-- Replace with real images -->
+          <img src="https://via.placeholder.com/600x400?text=Modern+Office+Space" alt="Modern Office Space">
+          <p>Modern Office Space</p>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://via.placeholder.com/600x400?text=Cozy+Coffee+Shop" alt="Cozy Coffee Shop">
+          <p>Cozy Coffee Shop</p>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://via.placeholder.com/600x400?text=Elegant+Boutique" alt="Elegant Boutique">
+          <p>Elegant Boutique</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="fade-in">
+      <h2>About Us</h2>
+      <p>
+        3DNorthwest is dedicated to helping businesses shine in the digital world. 
+        With 13.5M+ views on Google Maps, we are experts in 360° photography and 
+        virtual tours, ensuring your business captures attention and builds trust 
+        with potential customers.
+      </p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="fade-in">
+      <h2>Contact Us</h2>
+      <!-- Example Formspree link; update {your-form-id} -->
+      <form action="https://formspree.io/f/{your-form-id}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy; 2025 3DNorthwest. All rights reserved.</p>
+      <ul class="social-links">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </footer>
+  </div>
+
+  <!-- INTERSECTION OBSERVER for Scroll Animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.fade-in, .slide-left, .slide-right');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      elements.forEach((el) => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
